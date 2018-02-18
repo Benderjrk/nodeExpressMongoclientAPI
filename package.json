@@ -1,0 +1,18 @@
+{
+  "name": "mongodbnode",
+  "version": "1.0.0",
+  "description": "mongoStore",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "async": "^2.6.0",
+    "body-parser": "*",
+    "cors": "*",
+    "express": "*",
+    "mongodb": "^2.2.33"
+  },
+  "author": "Justin Bender",
+  "license": "ISC"
+}
