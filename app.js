@@ -14,46 +14,36 @@ initializeDatabases(function(err, dbs) {
     console.error(err);
     process.exit(1);
   }
-  routes(app, dbs);
-});
+  console.log(`Database connected`)
 
+  // Init Express App
+  const app = express();
 
-  // Initialize the application once database connections are ready.
+  // Port Number
+  const port = process.env.PORT || 8080;
 
+  // Cors Middleware
+  app.use(cors());
 
-// Init Express App
-const app = express();
+  // Set Static Folder
+  app.use(express.static(path.join(__dirname, 'public')));
 
-// COnnecting the apis
+  // BodyParser Middleware
+  app.use(bodyParser.json());
 
+routes(app, dbs);
 
-// Port Number
-const port = process.env.PORT || 8080;
+  // Index Route
+  app.get('/', (req, res) => {
+    res.send('Invalid Endpoint');
+  });
 
-// Cors Middleware
-app.use(cors());
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/index.html'));
 
-
-//
-// Set Static Folder
-app.use(express.static(path.join(__dirname, 'public')));
-
-// BodyParser Middleware
-app.use(bodyParser.json());
-
-
-
-
-// Index Route
-app.get('/', (req, res) => {
-  res.send('Invalid Endpoint');
-});
-
-// app.get('*', (req, res) => {
-//   res.sendFile(path.join(__dirname, 'public/index.html'));
-//
-// });
-// Start Server
-app.listen(port, () => {
-  console.log("Server has started on " + port);
+  });
+  // Start Server
+  app.listen(port, () => {
+    console.log("Server has started on " + port);
+  });
 });
